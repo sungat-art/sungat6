@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Төлеген Айбергенов - Виртуалды зертхана (Ретро)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Courier+Prime&display=swap');
+        
+        :root {
+            --paper: rgba(244, 236, 216, 0.75);
+            --ink: #1a1a1a;
+            --vintage-red: #7a0000;
+            --border-color: rgba(209, 193, 161, 0.5);
+        }
+
+        body {
+            font-family: 'EB Garamond', serif;
+            color: var(--ink);
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), 
+                        url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2000') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        .classic-serif { font-family: 'Playfair Display', serif; }
+        .typewriter { font-family: 'Courier Prime', monospace; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.8s ease-in-out; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-btn {
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+        .nav-btn.active {
+            color: var(--vintage-red);
+            border-bottom: 2px solid var(--vintage-red);
+            font-weight: bold;
+            background: rgba(244, 236, 216, 0.6);
+        }
+
+        .paper-card {
+            background-color: var(--paper);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(12px);
+            position: relative;
+            border-radius: 4px;
+        }
+
+        .portrait-frame {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            border: 1px solid #ccc;
+            transform: rotate(-1.5deg);
+            transition: transform 0.5s ease;
+        }
+        .portrait-frame:hover { transform: rotate(0deg) scale(1.05); }
+
+        .wax-seal {
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(#a52a2a, #800000);
+            border-radius: 50%;
+            position: absolute;
+            bottom: -20px;
+            right: 40px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center; justify-content: center;
+            color: #d1c1a1; font-weight: bold; font-size: 10px;
+            border: 2px solid #600000; z-index: 5; opacity: 0.9;
+        }
+
+        input[type="text"], textarea {
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom: 1px dotted var(--vintage-red);
+            font-family: 'Courier Prime', monospace;
+            padding: 8px; width: 100%;
+        }
+
+        .quiz-item { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(4px); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; }
+    </style>
+</head>
+<body class="min-h-screen pb-12">
+
+    <header class="py-16 px-4 text-center border-b border-gray-900 mx-auto max-w-5xl bg-white/10 backdrop-blur-md mt-6 rounded-t-xl shadow-2xl">
+        <p class="typewriter text-xs uppercase tracking-[0.3em] mb-3 text-gray-900 font-bold">Архивтік материалдар • 1937 - 1967</p>
+        <h1 class="classic-serif text-5xl md:text-7xl font-bold mb-4 tracking-tight text-gray-900">Төлеген Айбергенов</h1>
+        <div class="flex justify-center items-center gap-6">
+            <div class="h-[1px] bg-gray-800 w-16 md:w-32"></div>
+            <p class="text-2xl italic font-serif lowercase tracking-wider text-red-950">Сағыныш жырының зертханасы</p>
+            <div class="h-[1px] bg-gray-800 w-16 md:w-32"></div>
+        </div>
+    </header>
+
+    <nav class="flex flex-wrap justify-center gap-2 md:gap-8 py-4 sticky top-0 bg-white/10 z-50 backdrop-blur-xl border-b border-white/20 shadow-xl">
+        <button onclick="openTab('bio')" class="nav-btn px-4 py-2 uppercase text-xs font-bold active" id="btn-bio">Ақын мұрасы</button>
+        <button onclick="openTab('poem')" class="nav-btn px-4 py-2 uppercase text-xs font-bold" id="btn-poem">Өлең сөзі</button>
+        <button onclick="openTab('theory')" class="nav-btn px-4 py-2 uppercase text-xs font-bold" id="btn-theory">Теория</button>
+        <button onclick="openTab('tasks')" class="nav-btn px-4 py-2 uppercase text-xs font-bold" id="btn-tasks">Жазба жұмыстары</button>
+        <button onclick="openTab('quiz')" class="nav-btn px-4 py-2 uppercase text-xs font-bold" id="btn-quiz">Сынақ</button>
+    </nav>
+
+    <main class="container mx-auto max-w-4xl p-6 mt-8">
+        
+        <section id="bio" class="tab-content active">
+            <div class="paper-card p-12 relative">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="classic-serif text-4xl mb-8 border-b-2 border-red-900 inline-block">Тұлғалық бейне</h2>
+                        <div class="space-y-6 text-xl leading-relaxed">
+                            <p><span class="italic font-bold text-red-900">1937 жыл, 8 наурыз</span> — Қоңырат топырағында өмірге келді.</p>
+                            <p>Низами атындағы институтты бітіріп, ұстаздық жолын таңдады. Бірақ поэзия оны биік шыңдарға жетеледі.</p>
+                            <p>Ол небәрі 30 жыл ғұмыр кешсе де, қазақ әдебиетінің "Алтын қорына" мәңгілік жырларын қалдырып кетті.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="portrait-frame">
+                             <img src="https://qazaquni.kz/wp-content/uploads/2019/08/2019080207381667.jpg" 
+                                  alt="Төлеген Айбергенов" 
+                                  class="w-72 h-96 object-cover grayscale sepia brightness-90 shadow-lg">
+                        </div>
+                        <p class="typewriter text-sm mt-6 text-red-900 font-bold uppercase tracking-[0.2em]">Төлеген Айбергенов</p>
+                    </div>
+                </div>
+                <div class="wax-seal">ТА</div>
+            </div>
+        </section>
+
+        <section id="poem" class="tab-content">
+            <div class="paper-card p-12">
+                <h2 class="classic-serif text-4xl text-center mb-12 italic text-gray-900">«Сағыныш»</h2>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="italic text-2xl leading-[1.8] space-y-6 border-r-2 border-black/10 pr-10 text-gray-900">
+                        <p>Сағындым, жаным, мен сені!</p>
+                        <p>Көркіңді жүрген қуаныш қылып, мендей ме екен бар ағаң,<br>Шын інім болсаң, бас ұрма, жаным, өсек-ғайбатқа бораған.</p>
+                        <p><span class="text-red-900 font-bold decoration-wavy underline">Адамның заңғар ұлылығын, сен сағынышымен есепте.</span></p>
+                    </div>
+                    <div class="text-lg space-y-8 text-gray-900">
+                        <h3 class="classic-serif font-bold text-red-900 text-xl mb-4 uppercase tracking-wider">Идеялық мөр:</h3>
+                        <p class="leading-relaxed">Бұл өлең — адам жанының тазалығы мен биіктігінің гимні. Ақын сағынышты әлсіздік емес, керісінше, <span class="font-bold text-red-900">ұлылық</span> ретінде бейнелейді.</p>
+                        <div class="typewriter text-base p-6 border border-red-900 bg-white/20">
+                            <span class="font-bold text-red-800">Тірек бейнелер:</span><br>
+                            - Тұлпар (еркіндік)<br>- Теңіз (сезім тереңдігі)<br>- Таулар (асқақтық)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="theory" class="tab-content">
+            <div class="paper-card p-12">
+                <h2 class="classic-serif text-3xl mb-10 border-b-2 border-gray-800 inline-block">Әдебиет теориясы</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-900">
+                    <div class="p-8 bg-white/30 border-l-8 border-red-900 shadow-sm backdrop-blur-sm">
+                        <h4 class="font-bold text-xl mb-3 classic-serif">Метонимия</h4>
+                        <p class="italic">Өзара шектес заттарды алмастыру. Мысалы: "Абайды оқыдым".</p>
+                    </div>
+                    <div class="p-8 bg-white/30 border-l-8 border-red-900 shadow-sm backdrop-blur-sm">
+                        <h4 class="font-bold text-xl mb-3 classic-serif">Кейіптеу</h4>
+                        <p class="italic">Табиғатқа жан бітіру. Өлеңде: "Сағыныштан оянған таулар".</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tasks" class="tab-content">
+            <div class="paper-card p-12 space-y-16">
+                <div>
+                    <h3 class="classic-serif text-3xl mb-8 italic text-red-950">№7. Сезім картасы</h3>
+                    <table class="w-full border-collapse typewriter text-base bg-white/20">
+                        <thead><tr class="bg-black/80 text-white"><th class="p-4 text-left">Өлең жолдары</th><th class="p-4 text-left">Сіздің қабылдауыңыз</th></tr></thead>
+                        <tbody>
+                            <tr class="border-b border-black/10 text-gray-900"><td class="p-6 italic bg-white/10">"Сағындым, жаным, мен сені!"</td><td class="p-6"><input type="text" placeholder="..."></td></tr>
+                            <tr class="text-gray-900"><td class="p-6 italic bg-white/10">"Қара тасты да сағынам..."</td><td class="p-6"><input type="text" placeholder="..."></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <h3 class="classic-serif text-3xl mb-6 italic text-red-950">№10. Шығармашылық эссе</h3>
+                    <textarea class="w-full h-80 p-10 border-2 border-double border-gray-800 bg-white/20 text-xl font-serif" placeholder="Ойыңызды жазыңыз..."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <section id="quiz" class="tab-content">
+            <div class="paper-card p-12">
+                <h2 class="classic-serif text-4xl mb-12 border-b-2 border-red-900 pb-4 text-gray-900 uppercase tracking-widest">Білім тексеру: 5 сұрақ</h2>
+                <div id="quiz-container" class="space-y-6 typewriter text-gray-900">
+                    <div class="quiz-item border-l-4 border-gray-800">
+                        <p class="text-xl font-bold mb-4">1. Төлеген Айбергенов қай жерде дүниеге келді?</p>
+                        <label class="block p-4 border border-black/20 rounded-md mb-2 cursor-pointer"><input type="radio" name="q1" value="0"> Маңғыстау өңірінде</label>
+                        <label class="block p-4 border border-black/20 rounded-md cursor-pointer"><input type="radio" name="q1" value="1"> Қарақалпақ елі, Қоңыратта</label>
+                    </div>
+                    <div class="quiz-item border-l-4 border-gray-800">
+                        <p class="text-xl font-bold mb-4">2. Тұңғыш өлеңдер жинағы қалай аталады?</p>
+                        <label class="block p-4 border border-black/20 rounded-md mb-2 cursor-pointer"><input type="radio" name="q2" value="1"> «Жас дәурен»</label>
+                        <label class="block p-4 border border-black/20 rounded-md cursor-pointer"><input type="radio" name="q2" value="0"> «Аманат»</label>
+                    </div>
+                    <div class="quiz-item border-l-4 border-gray-800">
+                        <p class="text-xl font-bold mb-4">3. «Сағыныштан оянған таулар» тіркесінде қандай тәсіл бар?</p>
+                        <label class="block p-4 border border-black/20 rounded-md mb-2 cursor-pointer"><input type="radio" name="q3" value="0"> Литота</label>
+                        <label class="block p-4 border border-black/20 rounded-md cursor-pointer"><input type="radio" name="q3" value="1"> Кейіптеу</label>
+                    </div>
+                    <div class="quiz-item border-l-4 border-gray-800">
+                        <p class="text-xl font-bold mb-4">4. Адамның заңғар ұлылығы немен өлшенеді?</p>
+                        <label class="block p-4 border border-black/20 rounded-md mb-2 cursor-pointer"><input type="radio" name="q4" value="0"> Дәулетімен</label>
+                        <label class="block p-4 border border-black/20 rounded-md cursor-pointer"><input type="radio" name="q4" value="1"> Сағынышымен</label>
+                    </div>
+                    <div class="quiz-item border-l-4 border-gray-800">
+                        <p class="text-xl font-bold mb-4">5. Ақын неше жасында өмірден озды?</p>
+                        <label class="block p-4 border border-black/20 rounded-md mb-2 cursor-pointer"><input type="radio" name="q5" value="1"> 30 жасында</label>
+                        <label class="block p-4 border border-black/20 rounded-md cursor-pointer"><input type="radio" name="q5" value="0"> 50 жасында</label>
+                    </div>
+                    <button onclick="checkQuiz()" class="w-full bg-gray-950 text-white py-6 text-xl uppercase font-bold tracking-[0.3em] hover:bg-red-950 mt-8">Сынақты аяқтау</button>
+                    <div id="quiz-result" class="mt-10 p-8 text-center border-8 border-double hidden"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-12 opacity-80 italic typewriter text-sm border-t border-white/20 mx-auto max-w-4xl mt-12 text-gray-900">
+        — Төлеген Айбергенов мұражайынан арнайы • 1967 ж. —
+    </footer>
+
+    <script>
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.getElementById('btn-' + tabId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function checkQuiz() {
+            let score = 0;
+            for(let i = 1; i <= 5; i++) {
+                const q = document.querySelector(`input[name="q${i}"]:checked`);
+                if(q && q.value === "1") score++;
+            }
+            const res = document.getElementById('quiz-result');
+            res.classList.remove('hidden');
+            res.innerHTML = `<h3 class="text-3xl mb-2 classic-serif">НӘТИЖЕ: ${score}/5</h3><p>Сабақты меңгеру деңгейіңіз көрсетілді.</p>`;
+            res.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
